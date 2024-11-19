@@ -6,7 +6,7 @@ services:
     region: oregon
     image:
       url: docker.io/atendai/evolution-api:v2.2.0
-    dockerCommand: node dist/main
+    dockerCommand: npm run db:generate && npm run db:deploy && node dist/main
     envVars:
       - key: AUTHENTICATION_API_KEY
         value: MUDAR_ESSA_KEY
