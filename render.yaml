@@ -1,0 +1,227 @@
+services:
+  - type: web
+    name: evolution-web
+    runtime: image
+    plan: free
+    image:
+      url: docker.io/atendai/evolution-api:v2.2.0
+    dockerCommand: node dist/main
+    envVars:
+      - key: DATABASE_CONNECTION_URI
+        fromDatabase:
+          name: evolution-main-db
+          property: connectionString
+      - key: CHATWOOT_IMPORT_DATABASE_CONNECTION_URI
+        fromDatabase:
+          name: evolution-chatwoot-db
+          property: connectionString
+      - key: CACHE_REDIS_URI
+        fromService:
+          type: redis
+          name: evolution-redis
+          property: connectionString
+      - key: SERVER_URL
+        value: https://localhost:8080
+      - key: DEL_INSTANCE
+        value: "false"
+      - key: PROVIDER_ENABLED
+        value: "false"
+      - key: PROVIDER_HOST
+        value: 127.0.0.1
+      - key: PROVIDER_PORT
+        value: 5656
+      - key: PROVIDER_PREFIX
+        value: evolution_v2
+      - key: DATABASE_ENABLED
+        value: "true"
+      - key: DATABASE_PROVIDER
+        value: postgresql
+      - key: DATABASE_SAVE_DATA_INSTANCE
+        value: "true"
+      - key: DATABASE_SAVE_DATA_NEW_MESSAGE
+        value: "true"
+      - key: DATABASE_SAVE_MESSAGE_UPDATE
+        value: "true"
+      - key: DATABASE_SAVE_DATA_CONTACTS
+        value: "true"
+      - key: DATABASE_SAVE_DATA_CHATS
+        value: "true"
+      - key: DATABASE_SAVE_DATA_LABELS
+        value: "true"
+      - key: DATABASE_SAVE_DATA_HISTORIC
+        value: "true"
+      - key: DATABASE_CONNECTION_CLIENT_NAME
+        value: evolution_v2
+      - key: CACHE_REDIS_ENABLED
+        value: "true"
+      - key: CACHE_REDIS_PREFIX_KEY
+        value: evolution_v2
+      - key: RABBITMQ_ENABLED
+        value: "false"
+      - key: RABBITMQ_URI
+        value: amqp://admin:admin@rabbitmq:5672/default
+      - key: RABBITMQ_EXCHANGE_NAME
+        value: evolution_v2
+      - key: RABBITMQ_GLOBAL_ENABLED
+        value: "false"
+      - key: RABBITMQ_EVENTS_APPLICATION_STARTUP
+        value: "false"
+      - key: RABBITMQ_EVENTS_INSTANCE_CREATE
+        value: "false"
+      - key: RABBITMQ_EVENTS_INSTANCE_DELETE
+        value: "false"
+      - key: RABBITMQ_EVENTS_QRCODE_UPDATED
+        value: "false"
+      - key: RABBITMQ_EVENTS_MESSAGES_SET
+        value: "false"
+      - key: RABBITMQ_EVENTS_MESSAGES_UPSERT
+        value: "true"
+      - key: RABBITMQ_EVENTS_MESSAGES_EDITED
+        value: "false"
+      - key: RABBITMQ_EVENTS_MESSAGES_UPDATE
+        value: "false"
+      - key: RABBITMQ_EVENTS_MESSAGES_DELETE
+        value: "false"
+      - key: RABBITMQ_EVENTS_SEND_MESSAGE
+        value: "false"
+      - key: RABBITMQ_EVENTS_CONTACTS_SET
+        value: "false"
+      - key: RABBITMQ_EVENTS_CONTACTS_UPSERT
+        value: "false"
+      - key: RABBITMQ_EVENTS_CONTACTS_UPDATE
+        value: "false"
+      - key: RABBITMQ_EVENTS_PRESENCE_UPDATE
+        value: "false"
+      - key: RABBITMQ_EVENTS_CHATS_SET
+        value: "false"
+      - key: RABBITMQ_EVENTS_CHATS_UPSERT
+        value: "false"
+      - key: RABBITMQ_EVENTS_CHATS_UPDATE
+        value: "false"
+      - key: RABBITMQ_EVENTS_CHATS_DELETE
+        value: "false"
+      - key: RABBITMQ_EVENTS_GROUPS_UPSERT
+        value: "false"
+      - key: RABBITMQ_EVENTS_GROUP_UPDATE
+        value: "false"
+      - key: RABBITMQ_EVENTS_GROUP_PARTICIPANTS_UPDATE
+        value: "false"
+      - key: RABBITMQ_EVENTS_CONNECTION_UPDATE
+        value: "true"
+      - key: RABBITMQ_EVENTS_CALL
+        value: "false"
+      - key: RABBITMQ_EVENTS_TYPEBOT_START
+        value: "false"
+      - key: RABBITMQ_EVENTS_TYPEBOT_CHANGE_STATUS
+        value: "false"
+      - key: SQS_ENABLED
+        value: "false"
+      - key: WEBSOCKET_ENABLED
+        value: "false"
+      - key: WEBSOCKET_GLOBAL_EVENTS
+        value: "false"
+      - key: WA_BUSINESS_TOKEN_WEBHOOK
+        value: evolution
+      - key: WA_BUSINESS_URL
+        value: https://graph.facebook.com
+      - key: WA_BUSINESS_VERSION
+        value: v20.0
+      - key: WA_BUSINESS_LANGUAGE
+        value: pt_BR
+      - key: WEBHOOK_GLOBAL_ENABLED
+        value: "false"
+      - key: WEBHOOK_GLOBAL_WEBHOOK_BY_EVENTS
+        value: "false"
+      - key: WEBHOOK_EVENTS_APPLICATION_STARTUP
+        value: "false"
+      - key: WEBHOOK_EVENTS_QRCODE_UPDATED
+        value: "true"
+      - key: WEBHOOK_EVENTS_MESSAGES_SET
+        value: "true"
+      - key: WEBHOOK_EVENTS_MESSAGES_UPSERT
+        value: "true"
+      - key: WEBHOOK_EVENTS_MESSAGES_EDITED
+        value: "true"
+      - key: WEBHOOK_EVENTS_MESSAGES_UPDATE
+        value: "true"
+      - key: WEBHOOK_EVENTS_MESSAGES_DELETE
+        value: "true"
+      - key: WEBHOOK_EVENTS_SEND_MESSAGE
+        value: "true"
+      - key: WEBHOOK_EVENTS_CONTACTS_SET
+        value: "true"
+      - key: WEBHOOK_EVENTS_CONTACTS_UPSERT
+        value: "true"
+      - key: WEBHOOK_EVENTS_CONTACTS_UPDATE
+        value: "true"
+      - key: WEBHOOK_EVENTS_PRESENCE_UPDATE
+        value: "true"
+      - key: WEBHOOK_EVENTS_CHATS_SET
+        value: "true"
+      - key: WEBHOOK_EVENTS_CHATS_UPSERT
+        value: "true"
+      - key: WEBHOOK_EVENTS_CHATS_UPDATE
+        value: "true"
+      - key: WEBHOOK_EVENTS_CHATS_DELETE
+        value: "true"
+      - key: WEBHOOK_EVENTS_GROUPS_UPSERT
+        value: "true"
+      - key: WEBHOOK_EVENTS_GROUPS_UPDATE
+        value: "true"
+      - key: WEBHOOK_EVENTS_GROUP_PARTICIPANTS_UPDATE
+        value: "true"
+      - key: WEBHOOK_EVENTS_CONNECTION_UPDATE
+        value: "true"
+      - key: WEBHOOK_EVENTS_LABELS_EDIT
+        value: "true"
+      - key: WEBHOOK_EVENTS_LABELS_ASSOCIATION
+        value: "true"
+      - key: WEBHOOK_EVENTS_CALL
+        value: "true"
+      - key: WEBHOOK_EVENTS_TYPEBOT_START
+        value: "false"
+      - key: WEBHOOK_EVENTS_TYPEBOT_CHANGE_STATUS
+        value: "false"
+      - key: WEBHOOK_EVENTS_ERRORS
+        value: "false"
+      - key: CONFIG_SESSION_PHONE_CLIENT
+        value: Evolution API V2
+      - key: CONFIG_SESSION_PHONE_NAME
+        value: Chrome
+      - key: CONFIG_SESSION_PHONE_VERSION
+        value: 2.3000.1015901307
+      - key: QRCODE_LIMIT
+        value: 30
+      - key: OPENAI_ENABLED
+        value: "true"
+      - key: DIFY_ENABLED
+        value: "true"
+      - key: TYPEBOT_ENABLED
+        value: "true"
+      - key: TYPEBOT_API_VERSION
+        value: latest
+      - key: CHATWOOT_ENABLED
+        value: "true"
+      - key: CHATWOOT_MESSAGE_READ
+        value: "true"
+      - key: CHATWOOT_MESSAGE_DELETE
+        value: "true"
+      - key: CHATWOOT_IMPORT_PLACEHOLDER_MEDIA_MESSAGE
+        value: "true"
+      - key: AUTHENTICATION_API_KEY
+        value: 429683C4C977415CAAFCCE10F7D57E11
+      - key: LANGUAGE
+        value: en
+
+  - type: redis
+    name: evolution-redis
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
+    plan: free
+
+databases:
+  - name: evolution-main-db
+    plan: free
+  - name: evolution-chatwoot-db
+    plan: free
