@@ -3,6 +3,7 @@ services:
     name: evolution-web
     runtime: image
     plan: free
+    region: oregon
     image:
       url: docker.io/atendai/evolution-api:v2.2.0
     dockerCommand: node dist/main
@@ -215,6 +216,8 @@ services:
 
   - type: redis
     name: evolution-redis
+    region: oregon
+    maxmemoryPolicy: allkeys-lru
     ipAllowList:
       - source: 0.0.0.0/0
         description: everywhere
@@ -223,5 +226,7 @@ services:
 databases:
   - name: evolution-main-db
     plan: free
+    region: oregon
   - name: evolution-chatwoot-db
     plan: free
+    region: oregon
