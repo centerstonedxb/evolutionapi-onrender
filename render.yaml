@@ -5,7 +5,7 @@ services:
     plan: free
     region: oregon
     image:
-      url: docker.io/atendai/evolution-api:v2.2.0
+      url: docker.io/atendai/evolution-api:v2.1.1-homolog
     dockerCommand: npm run db:generate && npm run db:deploy && node dist/main
     envVars:
       - key: AUTHENTICATION_API_KEY
