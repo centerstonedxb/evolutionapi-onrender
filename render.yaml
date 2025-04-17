@@ -3,13 +3,13 @@ services:
     name: evolution-web
     runtime: image
     plan: free
-    region: oregon
+    region: frankfurt
     image:
-      url: docker.io/atendai/evolution-api:v2.1.1-homolog
+      url: docker.io/atendai/evolution-api:v2.2.3
     dockerCommand: npm run db:generate && npm run db:deploy && node dist/main
     envVars:
       - key: AUTHENTICATION_API_KEY
-        value: MUDAR_ESSA_KEY
+        value: 7a7cdd1972cf879616ba6eb47999a79a
       - key: DATABASE_CONNECTION_URI
         fromDatabase:
           name: evolution-main-db
@@ -188,7 +188,7 @@ services:
       - key: WEBHOOK_EVENTS_ERRORS
         value: "false"
       - key: CONFIG_SESSION_PHONE_CLIENT
-        value: Evolution API V2
+        value: CS Evo
       - key: CONFIG_SESSION_PHONE_NAME
         value: Chrome
       - key: CONFIG_SESSION_PHONE_VERSION
@@ -216,7 +216,7 @@ services:
 
   - type: redis
     name: evolution-redis
-    region: oregon
+    region: frankfurt
     maxmemoryPolicy: allkeys-lru
     ipAllowList:
       - source: 0.0.0.0/0
@@ -226,7 +226,7 @@ services:
 databases:
   - name: evolution-main-db
     plan: free
-    region: oregon
+    region: frankfurt
   - name: evolution-chatwoot-db
     plan: free
-    region: oregon
+    region: frankfurt
