@@ -9,7 +9,7 @@ services:
     dockerCommand: npm run db:generate && npm run db:deploy && node dist/main
     envVars:
       - key: AUTHENTICATION_API_KEY
-        value: 7a7cdd1972cf879616ba6eb47999a79a
+        value: 7a7cdd1972cf879616ba6eb47999a79b
       - key: DATABASE_CONNECTION_URI
         fromDatabase:
           name: evolution-main-db
